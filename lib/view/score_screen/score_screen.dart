@@ -93,13 +93,13 @@ class ScoreScreen extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             )),
-        Positioned(
-            bottom: 200,
-            child: SizedBox(
-              width: screenWidth * 2,
-              child: Lottie.asset("assets/congratulations.json",
-                  repeat: false, fit: BoxFit.cover),
-            )),
+        // Positioned(
+        //     bottom: 200,
+        //     child: SizedBox(
+        //       width: screenWidth * 2,
+        //       child: Lottie.asset("assets/congratulations.json",
+        //           repeat: true, fit: BoxFit.cover),
+        //     )),
         Positioned(
           top: 130,
           child: InkWell(

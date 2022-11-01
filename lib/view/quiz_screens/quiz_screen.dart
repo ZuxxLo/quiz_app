@@ -128,104 +128,132 @@ class QuizScreen extends StatelessWidget {
                     height: screenHeight * 0.035,
                   ),
                   SizedBox(
-                    height: screenHeight * 0.55,
-                    child: GetBuilder<QuizScreenController>(builder: (context) {
-                      return PageView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        controller: quizScreenController.pageController,
-                        itemCount: quizScreenController.getQuestionList.length,
-                        itemBuilder: (BuildContext context, int indexx) =>
-                            Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                              child: Text(
-                                quizScreenController
-                                    .getQuestionList[indexx].question,
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            SizedBox(
-                              height: screenHeight * 0.04,
-                            ),
-                            Wrap(
-                              alignment: WrapAlignment.center,
-                              direction: Axis.vertical,
-                              spacing: 20,
-                              children: List<Widget>.generate(
-                                4,
-                                (index) => GetBuilder<QuizScreenController>(
-                                    builder: (context) {
-                                  return TextButton(
-                                    style: ButtonStyle(
-                                      shape: MaterialStateProperty.all<
-                                              RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
-                                        side: BorderSide(
-                                          color: quizScreenController
-                                              .getRightColor(index),
-                                        ),
-                                        borderRadius: BorderRadius.circular(15),
-                                      )),
-                                    ),
-                                    onPressed: () {
-                                      if (quizScreenController.getIsPressed) {
-                                      } else {
-                                        // so that no one spam
-                                        quizScreenController.setIsPressed =
-                                            true;
-                                        // get user's answer to compare it
-                                        quizScreenController.setUserAnswer =
-                                            index;
-
-                                        quizScreenController.toNextQuestion();
-                                        quizScreenController
-                                            .playerScoreIncrement(index);
-                                      }
-                                    },
-                                    //the option from the question model
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      width: screenWidth * 0.8,
-                                      height: screenHeight * 0.05,
+                    height: screenHeight * 0.62,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Expanded(
+                          flex: 7,
+                          child: GetBuilder<QuizScreenController>(
+                              builder: (context) {
+                            return PageView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              controller: quizScreenController.pageController,
+                              itemCount:
+                                  quizScreenController.getQuestionList.length,
+                              itemBuilder: (BuildContext context, int indexx) =>
+                                  SingleChildScrollView(
+                                physics: const BouncingScrollPhysics(),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10, 0, 10, 0),
                                       child: Text(
                                         quizScreenController
-                                            .getQuestionList[indexx]
-                                            .options[index],
-                                        style: const TextStyle(
-                                            color: whiteColor, fontSize: 20),
+                                            .getQuestionList[indexx].question,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: screenWidth * 0.06,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                     ),
-                                  );
-                                }),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    }),
-                  ),
-                  //skip and score button
-                  GetBuilder<QuizScreenController>(builder: (context) {
-                    return MyButton(
-                        height: screenHeight * 0.07,
-                        width: screenWidth * 0.5,
-                        title: quizScreenController.getNumberOfQuestions == 9
-                            ? "Score ! "
-                            : "Skip",
-                        function: () {
-                          if (quizScreenController.getSkipIsPressed) {
-                          } else {
-                            // so that no one spam
-                            quizScreenController.setSkipIsPressed = true;
+                                    SizedBox(
+                                      height: screenHeight * 0.02,
+                                    ),
+                                    Wrap(
+                                      alignment: WrapAlignment.center,
+                                      direction: Axis.vertical,
+                                      spacing: screenHeight*0.04,
+                                      children: List<Widget>.generate(
+                                        4,
+                                        (index) =>
+                                            GetBuilder<QuizScreenController>(
+                                                builder: (context) {
+                                          return TextButton(
+                                            style: ButtonStyle(
+                                              shape: MaterialStateProperty.all<
+                                                      RoundedRectangleBorder>(
+                                                  RoundedRectangleBorder(
+                                                side: BorderSide(
+                                                  color: quizScreenController
+                                                      .getRightColor(index),
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                              )),
+                                            ),
+                                            onPressed: () {
+                                              if (quizScreenController
+                                                  .getIsPressed) {
+                                              } else {
+                                                // so that no one spam
+                                                quizScreenController
+                                                    .setIsPressed = true;
+                                                // get user's answer to compare it
+                                                quizScreenController
+                                                    .setUserAnswer = index;
 
-                            quizScreenController.toNextQuestion();
-                          }
-                        });
-                  })
+                                                quizScreenController
+                                                    .toNextQuestion();
+                                                quizScreenController
+                                                    .playerScoreIncrement(
+                                                        index);
+                                              }
+                                            },
+                                            //the option from the question model
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              width: screenWidth * 0.8,
+                                              height: screenHeight * 0.05,
+                                              child: Text(
+                                                quizScreenController
+                                                    .getQuestionList[indexx]
+                                                    .options[index],
+                                                style: TextStyle(
+                                                  color: whiteColor,
+                                                  fontSize: screenWidth * 0.05,
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        }),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }),
+                        ), //skip and score button
+                        Expanded(
+                          flex: 1,
+                          child: GetBuilder<QuizScreenController>(
+                              builder: (context) {
+                            return MyButton(
+                                height: screenHeight * 0.07,
+                                width: screenWidth * 0.5,
+                                title:
+                                    quizScreenController.getNumberOfQuestions ==
+                                            9
+                                        ? "Score ! "
+                                        : "Skip",
+                                function: () {
+                                  if (quizScreenController.getSkipIsPressed) {
+                                  } else {
+                                    // so that no one spam
+                                    quizScreenController.setSkipIsPressed =
+                                        true;
+
+                                    quizScreenController.toNextQuestion();
+                                  }
+                                });
+                          }),
+                        )
+                      ],
+                    ),
+                  ),
                 ]),
               ],
             ),

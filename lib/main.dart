@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
- import 'package:quiz_app/utils/quiz_screen_binding.dart';
+import 'package:quiz_app/utils/quiz_screen_binding.dart';
 import 'package:quiz_app/utils/score_screen_binding.dart';
 import 'package:quiz_app/view/quiz_screens/quiz_screen.dart';
 import 'package:quiz_app/view/score_screen/score_screen.dart';
 import 'package:quiz_app/view/username/username_page.dart';
+import 'package:device_preview/device_preview.dart';
 
 import 'utils/usrname_screen_binding.dart';
 import 'view/colors.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    // DevicePreview(
+    // builder: (context) =>
+
+    MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -19,6 +25,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      // useInheritedMediaQuery: true,
+      // locale: DevicePreview.locale(context),
+      // builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(

@@ -57,6 +57,6 @@ class MyButton extends StatelessWidget {
             onPressed: () {
               function();
             },
-            child: Text(title)));
+            child: Text(title,style: TextStyle(fontSize:width*0.09 ),)));
   }
 }
